@@ -1,11 +1,7 @@
 {
-  "name": "@sg-lowcode-management/study_webpack",
-  "version": "2.3.0",
-  "description": "",
-  "main": "./src/main.js",
-  "directories": {
-    "lib": "lib"
-  },
+  "name": "common_example_from_development",
+  "version": "0.0.0",
+  "description": "开发中常见的设计思想、思路、配置文件等集合",
   "scripts": {
     "release": "sh ./scripts/release.sh",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
@@ -17,10 +13,5 @@
     "chalk": "^3.0.0",
     "exec-sh": "^0.4.0",
     "inquirer": "^8.2.0"
-  },
-  "browserslist": [
-    "last 2 version",
-    "> 1%",
-    "not dead"
-  ]
+  }
 }
