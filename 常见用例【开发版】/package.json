@@ -1,0 +1,26 @@
+{
+  "name": "@sg-lowcode-management/study_webpack",
+  "version": "2.3.0",
+  "description": "",
+  "main": "./src/main.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "release": "sh ./scripts/release.sh",
+    "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
+  },
+  "keywords": [],
+  "author": "HardenSG <2767525216@qq.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "chalk": "^3.0.0",
+    "exec-sh": "^0.4.0",
+    "inquirer": "^8.2.0"
+  },
+  "browserslist": [
+    "last 2 version",
+    "> 1%",
+    "not dead"
+  ]
+}
