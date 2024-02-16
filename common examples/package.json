@@ -1,6 +1,6 @@
 {
   "name": "common_example_from_development",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "开发中常见的设计思想、思路、配置文件等集合",
   "scripts": {
     "release": "sh ./scripts/release.sh",
