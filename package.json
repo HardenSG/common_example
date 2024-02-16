@@ -12,6 +12,8 @@
   "devDependencies": {
     "chalk": "^3.0.0",
     "exec-sh": "^0.4.0",
-    "inquirer": "^8.2.0"
-  }
+    "inquirer": "^8.2.0",
+    "lerna": "^8.1.2"
+  },
+  "dependencies": {}
 }
