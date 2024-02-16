@@ -29,7 +29,7 @@ main() {
 
     echo "3. git actions"
     gitHelper
-
+    
     echo "release success🏅!!"
 }
 
