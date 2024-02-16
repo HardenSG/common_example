@@ -1,7 +1,7 @@
 {
   "name": "common_example_from_development",
   "version": "1.0.0",
-  "description": "开发中常见的设计思想、思路、配置文件等集合",
+  "description": "开发中常见的设计思想、思路、配置文件、算法等集合",
   "scripts": {
     "release": "sh ./scripts/release.sh",
     "changelog": "conventional-changelog -p angular -i CHANGELOG.md -s"
@@ -13,8 +13,5 @@
     "chalk": "^3.0.0",
     "exec-sh": "^0.4.0",
     "inquirer": "^8.2.0"
-  },
-  "dependencies": {
-    "typescript": "^5.3.3"
   }
 }
