@@ -11,6 +11,13 @@ async function release() {
     if (!isUpdateBaseBuild) {
         const repoName = await baseListInq('选择需要更新的monorepo名称', getPackagesDictList())
         baseRootFilePath = `${monorepoName}/${repoName}/package.json`
+        fileUtils({
+            action: 'write',
+            rootFile: './temp.json',
+            content: JSON.stringify({
+                repoName,
+            }, null, 2),
+        })
     }
     baseRootFilePath = path.resolve(__dirname, baseRootFilePath)
 

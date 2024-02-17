@@ -1,19 +1,24 @@
 #!/bin/bash
 
+# 获取当前Shell脚本的绝对路径
+SCRIPT=$(readlink -f "$0")
+# 获取当前Shell脚本所在目录
+SCRIPT_DIR=$(dirname "$SCRIPT")
+
 # release信息
 gitHelper() {
-    node ./scripts/gitHelper.js
+    node $SCRIPT_DIR/gitHelper.js
 }
 
 # changelog生成器
 logGenertor() {
     # npm run changelog
-    conventional-changelog -p angular -i CHANGELOG.md -s
+    node $SCRIPT_DIR/changelog.js
 }
 
 # 更新版本信息
 updateVersion() {
-    node ./scripts/updateVersion.js
+    node $SCRIPT_DIR/updateVersion.js
 }
 
 # 发包
@@ -23,6 +28,9 @@ publisher() {
 
 # 主逻辑
 main() {
+    # 创建临时文件
+    echo "{}" > $SCRIPT_DIR/temp.json
+
     echo "===== changelog & commit ====="
 
     echo "1. 更新版本信息.....\n"
@@ -38,6 +46,9 @@ main() {
     publisher
     
     echo "release success🏅！！"
+
+    # 删除临时文件
+    rm $SCRIPT_DIR/temp.json
 }
 
 main
