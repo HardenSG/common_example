@@ -6,7 +6,7 @@ const path = require('path')
 const UPDATE_VERSION_TACTICS = {
     'patch': (major, middle, patch) => [major, middle, patch + 1],
     'beta': (major, middle) => [major, middle + 1, 0],
-    'next': major => [major + 1, 0, 0],
+    'lasted': major => [major + 1, 0, 0],
 }
 
 // 获得详细版本
@@ -46,10 +46,10 @@ function fileUtils({
     rootFile = '../package.json',
     content
 } = {
-    action: 'read',
-    rootFile: '../package.json',
-    content: ''
-}) {
+        action: 'read',
+        rootFile: '../package.json',
+        content: ''
+    }) {
     if (action === 'read') {
         return JSON.parse(fs.readFileSync(path.resolve(__dirname, rootFile)));
     } else {
@@ -80,8 +80,61 @@ async function baseConfirmInq(prompt) {
     return options.choice
 }
 
+/**
+ * 基础列表prompt
+ * @param {String} prompt 
+ * @param {String[]} choiceList 
+ * @returns 
+ */
+async function baseListInq(prompt = '选择列表中的某一项', choiceList) {
+    const options = await inquirer.prompt([
+        {
+            type: 'list',
+            name: 'listItem',
+            message: prompt,
+            choices: [...choiceList],
+        },
+    ]);
+    return options.listItem
+}
+
+/**
+ * 基础键入列表
+ * @param {String[]} promptList - 问题列表
+ * @returns {any[]}
+ */
+async function baseInputInq(promptList = []) {
+    function questionCreator(list) {
+        return list.map((v, i) => ({
+            type: 'input',
+            name: `input-${i}`,
+            message: v
+        }))
+    }
+    const optionObj = await inquirer.prompt([
+        ...questionCreator(promptList)
+    ]);
+    return Object.keys(optionObj).map(k => optionObj[k])
+}
+
+/**
+ * 获取到根目录下的配置文件
+ * @returns {{
+ *  monorepoName: String
+ * }}
+ */
+function getCLIConfig() {
+    return require(path.resolve(__dirname, '../cli-config'))
+}
+
+// 获取cli基本配置
+const CLI_COMMON_CONFIG = getCLIConfig()
+
 module.exports = {
     countVersion,
     fileUtils,
-    baseConfirmInq
+    baseConfirmInq,
+    baseListInq,
+    baseInputInq,
+    CLI_COMMON_CONFIG
 }
