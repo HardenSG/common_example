@@ -1,6 +1,8 @@
 const inquirer = require('inquirer')
 const fs = require('fs')
 const path = require('path')
+const { execSync } = require('child_process');
+
 
 // 根据tag更新版本策略
 const UPDATE_VERSION_TACTICS = {
@@ -118,13 +120,30 @@ async function baseInputInq(promptList = []) {
 }
 
 /**
+ * 利用子进程执行命令
+ * @param {String} command 
+ * @returns 
+ */
+function multiProcessCommandExec(command) {
+    return execSync(command).toString().trim();
+}
+
+/**
  * 获取到根目录下的配置文件
  * @returns {{
- *  monorepoName: String
+ *  monorepo: {
+ *      needMonorepo: Boolean
+ *      name: String
+ *  }
+ *  git: {
+ *      branch: String
+ *      email: String
+ *      name: String
+ *  }
  * }}
  */
 function getCLIConfig() {
-    return require(path.resolve(__dirname, '../cli-config'))
+    return require(path.resolve(__dirname, '../release-config'))
 }
 
 // 获取cli基本配置
@@ -136,5 +155,6 @@ module.exports = {
     baseConfirmInq,
     baseListInq,
     baseInputInq,
+    multiProcessCommandExec,
     CLI_COMMON_CONFIG
 }

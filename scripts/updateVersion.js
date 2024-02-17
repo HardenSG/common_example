@@ -3,10 +3,10 @@ const path = require('path')
 const { countVersion, fileUtils, baseConfirmInq, baseListInq, baseInputInq, CLI_COMMON_CONFIG } = require('./utils')
 const { logUtils } = require('./constant')
 
-const monorepoName = '../' + CLI_COMMON_CONFIG.monorepoName
+const monorepoName = '../' + CLI_COMMON_CONFIG?.monorepo?.name
 async function release() {
     let baseRootFilePath = '../package.json'
-    const isUpdateBaseBuild = await baseConfirmInq('是否更新基建？');
+    const isUpdateBaseBuild = CLI_COMMON_CONFIG.monorepo.needMonorepo ? await baseConfirmInq('是否更新基建？') : true
 
     if (!isUpdateBaseBuild) {
         const repoName = await baseListInq('选择需要更新的monorepo名称', getPackagesDictList())
@@ -55,7 +55,7 @@ async function chooseUpdateTactics() {
 async function packageActions(path, canCreate = true) {
     const isExist = fs.existsSync(path)
     if (isExist) {
-        logUtils.success('存在包信息，即将更新版本..')
+        logUtils.success('存在包信息，即将更新版本..\n')
         return true
     }
     if (!isExist && canCreate) {
