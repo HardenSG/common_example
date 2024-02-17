@@ -18,23 +18,23 @@ updateVersion() {
 
 # 发包
 publisher() {
-    echo "do some npm package things"
+    echo "do some npm package things\n"
 }
 
 # 主逻辑
 main() {
     echo "===== changelog & commit ====="
 
-    echo "1. 更新版本信息....."
+    echo "1. 更新版本信息.....\n"
     updateVersion
 
-    echo "2. 生成changelog....."
+    echo "2. 生成changelog.....\n"
     logGenertor
 
-    echo "3. git actions"
+    echo "3. git actions\n"
     gitHelper
 
-    echo "4. npm publish"
+    echo "4. npm publish\n"
     publisher
     
     echo "release success🏅！！"

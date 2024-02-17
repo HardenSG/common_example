@@ -30,5 +30,7 @@ Ioc是一个比较🐮👃的架构方式，比如Spring全家桶、Nest架构�
 所以对于Order来说他就作为一个Ioc容器即可，其实理论上它并不需要业务逻辑
 Ioc其实可以理解为一个变相的中央存取
 
-## 完整的Ioc启动流程逻辑
+![](https://pic1.zhimg.com/80/v2-a50d41909d845ed5f11d2bb8e6d00b7c_1440w.webp)
+
+## 完整的Ioc启动流程逻辑(Java版)
 https://zhuanlan.zhihu.com/p/243462131

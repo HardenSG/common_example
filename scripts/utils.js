@@ -2,14 +2,7 @@ const inquirer = require('inquirer')
 const fs = require('fs')
 const path = require('path')
 const { execSync } = require('child_process');
-
-
-// 根据tag更新版本策略
-const UPDATE_VERSION_TACTICS = {
-    'patch': (major, middle, patch) => [major, middle, patch + 1],
-    'beta': (major, middle) => [major, middle + 1, 0],
-    'lasted': major => [major + 1, 0, 0],
-}
+const { UPDATE_VERSION_TACTICS } = require('./constant')
 
 // 获得详细版本
 function getVersion(versionStr) {
@@ -31,8 +24,6 @@ function countVersion(versionStr, tactics) {
     const { major, middle, patch } = getVersion(versionStr)
     return UPDATE_VERSION_TACTICS[tactics](major, middle, patch).join('.')
 }
-
-
 
 /**
  * 文件读写操作
