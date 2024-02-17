@@ -1,3 +1,13 @@
+## [1.1.2](https://github.com/HardenSG/common_example/compare/v1.1.0...v1.1.2) (2024-02-17)
+
+
+### Features
+
+* monorepo记录 ([91fecac](https://github.com/HardenSG/common_example/commit/91fecac7012c5d6b06ac4ffb048086b10b433141))
+* scripts/release逻辑采取根目录release-config.js配置化 & gitHelper逻辑增加Checker ([f84aaea](https://github.com/HardenSG/common_example/commit/f84aaea5f2178670a128a481d9512aaba33c22d9))
+
+
+
 # [1.1.0](https://github.com/HardenSG/common_example/compare/v1.0.0...v1.1.0) (2024-02-17)
 
 
