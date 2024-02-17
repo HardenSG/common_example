@@ -1,0 +1,12 @@
+{
+  "name": "project_manage",
+  "version": "1.0.0",
+  "description": "工程化、配置、release提效等集合",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "HardenSG <2767525216@qq.com>",
+  "license": "ISC"
+}
