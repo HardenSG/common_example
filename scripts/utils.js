@@ -94,14 +94,16 @@ async function baseListInq(prompt = '选择列表中的某一项', choiceList) {
 /**
  * 基础键入列表
  * @param {String[]} promptList - 问题列表
+ * @param {String[]} defaultPromptList - 默认列表
  * @returns {any[]}
  */
-async function baseInputInq(promptList = []) {
+async function baseInputInq(promptList = [], defaultPromptList = []) {
     function questionCreator(list) {
         return list.map((v, i) => ({
             type: 'input',
             name: `input-${i}`,
-            message: v
+            message: v,
+            default: defaultPromptList[i] || undefined
         }))
     }
     const optionObj = await inquirer.prompt([
@@ -134,11 +136,12 @@ function multiProcessCommandExec(command) {
  * }}
  */
 function getCLIConfig() {
-    return require(path.resolve(__dirname, '../release-config'))
+    const p = path.resolve(__dirname, '../release-config.js')
+    return fs.existsSync(p) && require(p)
 }
 
 // 获取cli基本配置
-const CLI_COMMON_CONFIG = getCLIConfig()
+const CLI_COMMON_CONFIG = () => getCLIConfig()
 
 module.exports = {
     countVersion,

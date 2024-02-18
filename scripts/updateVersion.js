@@ -3,10 +3,10 @@ const path = require('path')
 const { countVersion, fileUtils, baseConfirmInq, baseListInq, baseInputInq, CLI_COMMON_CONFIG } = require('./utils')
 const { logUtils } = require('./constant')
 
-const monorepoName = '../' + CLI_COMMON_CONFIG?.monorepo?.name
+const monorepoName = '../' + CLI_COMMON_CONFIG()?.monorepo?.name
 async function release() {
     let baseRootFilePath = '../package.json'
-    const isUpdateBaseBuild = CLI_COMMON_CONFIG.monorepo.needMonorepo ? await baseConfirmInq('是否更新基建？') : true
+    const isUpdateBaseBuild = CLI_COMMON_CONFIG().monorepo.needMonorepo ? await baseConfirmInq('是否更新基建根目录？') : true
 
     if (!isUpdateBaseBuild) {
         const repoName = await baseListInq('选择需要更新的monorepo名称', getPackagesDictList())
@@ -22,7 +22,7 @@ async function release() {
     baseRootFilePath = path.resolve(__dirname, baseRootFilePath)
 
     const res = await packageActions(baseRootFilePath)
-    if(!res) return 
+    if (!res) return
 
     const pkg = fileUtils({
         rootFile: baseRootFilePath
@@ -31,13 +31,13 @@ async function release() {
     const versionUpdateTactics = await chooseUpdateTactics()
     if (versionUpdateTactics) {
         pkg.version = countVersion(pkg.version, versionUpdateTactics)
-        logUtils.warn('即将写入包信息... \n')
+        logUtils.warn('⌛️：即将写入包信息... \n')
         fileUtils({
             action: 'write',
             content: JSON.stringify(pkg, null, 2),
             rootFile: baseRootFilePath
         })
-        logUtils.success('写入成功，版本更新生效！')
+        logUtils.success('✅：写入成功，版本更新生效！')
     }
 }
 
@@ -62,14 +62,14 @@ async function chooseUpdateTactics() {
 async function packageActions(path, canCreate = true) {
     const isExist = fs.existsSync(path)
     if (isExist) {
-        logUtils.success('存在包信息，即将更新版本..\n')
+        logUtils.success('⌛️：存在包信息，即将更新版本..\n')
         return true
     }
     if (!isExist && canCreate) {
-        logUtils.warn('不存在包信息，即将创建...')
-        
+        logUtils.warn('⌛️：不存在包信息，即将创建...')
+
         const template = fileUtils({
-            rootFile: './template.json'
+            rootFile: './template/package.json'
         })
 
         const resLists = await baseInputInq(['（name）pack名称', '（description）pack描述', '（author）pack作者'])
@@ -83,10 +83,10 @@ async function packageActions(path, canCreate = true) {
             rootFile: path,
             content: JSON.stringify(template, null, 2),
         })
-        logUtils.success('不存在包信息，创建成功！\n')
+        logUtils.success('✅：不存在包信息，创建成功！\n')
         return true
     } else {
-        logUtils.error('不存在包信息，且不创建包，即将退出...')
+        logUtils.error('❌：不存在包信息，且不创建包，即将退出...')
         return false
     }
 }
